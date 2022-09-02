@@ -9,26 +9,26 @@ import time
 import random
 
 allowed_Point = [2,3,7]
-def ranBias():
-    random_point = list(allowed_Point)
-    ran_id = random.randint(0,len(allowed_Point)-1)
-    return random_point[ran_id]
 
-def Convert(string, delim = '\n'):
-    li = list(string.split(delim))
-    return li
+def ranBias(bias = allowed_Point)-> int:
+    return bias[random.randint(0,len(bias)-1)]
+
+def Convert(string, delim = '\n') -> list:
+    return list(string.split(delim))
+
 
 def main():
     print("Downloading Requirement...")
+    # Check for chrome driver if not found install one
     try: 
         chromedriver_autoinstaller.install()
     except:
         print("Requirement error make sure that you have Google chrome 96.0+")
-        return False
+        return 1
 
-    print("Requirement sastisfied")    
+    print("Requirement sastisfied")
+
     driver = webdriver.Chrome()
-
     driver.get("http://www.student.mahidol.ac.th/evaluation/index.asp?cookie-lost")
     driver.set_window_size(1280, 715)
 
@@ -39,10 +39,10 @@ def main():
 
     # Get the most recent semester 
     current_Sem = driver.find_element(By.CSS_SELECTOR, "td:nth-child(1) > a > b").text
-
     time.sleep(1)
-    user_info = Convert(driver.find_element_by_xpath("/html/body").text)
 
+    # Grab all the subject name and subject code from the most recent semester
+    user_info = Convert(driver.find_element_by_xpath("/html/body").text)
     subject = []
     for text in user_info:
         if text.isupper():
