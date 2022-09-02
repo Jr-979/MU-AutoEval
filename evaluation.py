@@ -26,9 +26,9 @@ def main():
         print("Requirement error make sure that you have Google chrome 96.0+")
         return 1
 
-    print("Requirement sastisfied")    
-    driver = webdriver.Chrome()
+    print("Requirement sastisfied")
 
+    driver = webdriver.Chrome()
     driver.get("http://www.student.mahidol.ac.th/evaluation/index.asp?cookie-lost")
     driver.set_window_size(1280, 715)
 
