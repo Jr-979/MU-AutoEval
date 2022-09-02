@@ -39,10 +39,10 @@ def main():
 
     # Get the most recent semester 
     current_Sem = driver.find_element(By.CSS_SELECTOR, "td:nth-child(1) > a > b").text
-
     time.sleep(1)
-    user_info = Convert(driver.find_element_by_xpath("/html/body").text)
 
+    # Grab all the subject name and subject code from the most recent semester
+    user_info = Convert(driver.find_element_by_xpath("/html/body").text)
     subject = []
     for text in user_info:
         if text.isupper():
