@@ -13,7 +13,7 @@ allowed_Point = [2,3,7]
 def ranBias(bias = allowed_Point)-> int:
     return bias[random.randint(0,len(bias)-1)]
 
-def Convert(string, delim = '\n') -> list:
+def Convert(string, delim = '\n')-> list:
     return list(string.split(delim))
 
 
