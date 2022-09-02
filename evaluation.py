@@ -9,14 +9,13 @@ import time
 import random
 
 allowed_Point = [2,3,7]
-def ranBias():
-    random_point = list(allowed_Point)
-    ran_id = random.randint(0,len(allowed_Point)-1)
-    return random_point[ran_id]
 
-def Convert(string, delim = '\n'):
-    li = list(string.split(delim))
-    return li
+def ranBias(bias = allowed_Point)-> int:
+    return bias[random.randint(0,len(bias)-1)]
+
+def Convert(string, delim = '\n') -> list:
+    return list(string.split(delim))
+
 
 def main():
     print("Downloading Requirement...")
