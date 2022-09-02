@@ -19,11 +19,12 @@ def Convert(string, delim = '\n') -> list:
 
 def main():
     print("Downloading Requirement...")
+    # Check for chrome driver if not found install one
     try: 
         chromedriver_autoinstaller.install()
     except:
         print("Requirement error make sure that you have Google chrome 96.0+")
-        return False
+        return 1
 
     print("Requirement sastisfied")    
     driver = webdriver.Chrome()
