@@ -1,3 +1,7 @@
+import subprocess
+import sys
+subprocess.run([sys.executable, "-m", "pip","install","-r","requirement.txt"])
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -43,16 +47,14 @@ def main():
 
     # Grab all the subject name and subject code from the most recent semester
     user_info = Convert(driver.find_element_by_xpath("/html/body").text)
-    subject = []
-    for text in user_info:
-        if text.isupper():
-            subject.append(text)
 
     # Store all the avaliable subject as a subject code
-    subject_code = subject[1::2]
+    # Check is the text is an upper case and has len = 7 (EGELXXX) and check is this string contain digits
+    subject_code = [text for text in user_info if text.isupper() and len(text) == 7 and any(char.isdigit() for char in text)]
 
     # Loops through all the subject code 
     for subject in subject_code:
+        print("Subject :",subject,"Year  :",current_Sem[-2::1], "Term :",current_Sem[0])
         driver.get(f"http://www.student.mahidol.ac.th/evaluation/evaluate.asp?cid={subject}&fid=EG006C&tid=EG005T&mid=0&quarter={current_Sem[-2::1]}{current_Sem[0]}")
         driver.set_window_size(1280, 715)
 
@@ -65,7 +67,11 @@ def main():
                 elif checkbox == 19:
                     driver.find_element(By.CSS_SELECTOR, f"tr:nth-child(19) > #q3").click()
 
-                driver.find_element(By.CSS_SELECTOR, f"tr:nth-child({checkbox}) .scorePic:nth-child({ranBias()})").click()
+                try:
+                    driver.find_element(By.CSS_SELECTOR, f"tr:nth-child({checkbox}) .scorePic:nth-child({ranBias()})").click()
+                except Exceptions.NoSuchElementException:
+                    pass
+                
             # Press a submit button
             driver.find_element(By.CSS_SELECTOR, f"td:nth-child(2) > .btnBar").click()
 
