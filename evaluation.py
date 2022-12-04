@@ -58,12 +58,8 @@ def main():
         if len(text) == 7:
             subject_code.append(text)
 
-    # Store all the avaliable subject as a subject code error
-    # subject_code = subject[1::2]
-
     # Loops through all the subject code 
     for subject in subject_code:
-        #http://www.student.mahidol.ac.th/evaluation/evaluate.asp?cid=EGEE422&fid=EG006C&tid=EG005T&mid=0&quarter=651
         print("Subject : ",subject,"Year  : ",current_Sem[-2::1], "Term : ",current_Sem[0])
         driver.get(f"http://www.student.mahidol.ac.th/evaluation/evaluate.asp?cid={subject}&fid=EG006C&tid=EG005T&mid=0&quarter={current_Sem[-2::1]}{current_Sem[0]}")
         driver.set_window_size(1280, 715)
