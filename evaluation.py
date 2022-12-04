@@ -65,7 +65,11 @@ def main():
                 elif checkbox == 19:
                     driver.find_element(By.CSS_SELECTOR, f"tr:nth-child(19) > #q3").click()
 
-                driver.find_element(By.CSS_SELECTOR, f"tr:nth-child({checkbox}) .scorePic:nth-child({ranBias()})").click()
+                try:
+                    driver.find_element(By.CSS_SELECTOR, f"tr:nth-child({checkbox}) .scorePic:nth-child({ranBias()})").click()
+                except Exceptions.NoSuchElementException:
+                    pass
+                
             # Press a submit button
             driver.find_element(By.CSS_SELECTOR, f"td:nth-child(2) > .btnBar").click()
 
