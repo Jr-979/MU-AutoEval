@@ -18,6 +18,7 @@ Source code repo
 
 
 ##How to use
+0. Install python (Windows : winget install --id=Python.Python.3.10  -e)
 1. Clone this repository
 2. Extract the file
 3. Double click on run_windows / run_mac file
