@@ -21,3 +21,4 @@ Source code repo
 1. Clone this repository
 2. Extract the file
 3. Double click on run_windows / run_mac file
+4. If you want select the semester you can add -s or --semester-select as a argument to a python file.

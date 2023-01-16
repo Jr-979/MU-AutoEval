@@ -7,6 +7,7 @@ from selenium.common import exceptions as Exceptions
 import chromedriver_autoinstaller
 import time
 import random
+import argparse
 
 allowed_Point = [2,3,7]
 
@@ -17,7 +18,7 @@ def Convert(string, delim = '\n')-> list:
     return list(string.split(delim))
 
 
-def main():
+def main(args = None):
     print("Downloading Requirement...")
     # Check for chrome driver if not found install one
     try: 
@@ -35,10 +36,19 @@ def main():
     # Wait for 60 second for enter username and password
     WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, "td:nth-child(1) > a > b")))
     print ("Page is ready!")
-    driver.find_element(By.CSS_SELECTOR, "td:nth-child(1) > a > b").click()
+    
 
+    # User Input terms/year eg. 1/2564,2/2565
+    if args.semester_select:
+        current_Sem = input("Selected semester (Sem/Term):  ") 
+        driver.find_element_by_link_text(current_Sem).click()
+    
     # Get the most recent semester 
-    current_Sem = driver.find_element(By.CSS_SELECTOR, "td:nth-child(1) > a > b").text
+    # current_Sem = driver.find_element(By.CSS_SELECTOR, "td:nth-child(1) > a > b").text
+    else:
+        driver.find_element(By.CSS_SELECTOR, "td:nth-child(1) > a > b").click()
+        current_Sem = driver.find_element(By.CSS_SELECTOR, "td:nth-child(1) > a > b").text
+    
     time.sleep(1)
 
     # Grab all the subject name and subject code from the most recent semester
@@ -111,7 +121,12 @@ def main():
 
 if __name__ == "__main__":
     print("Program Running")
-    fail = main()
+    parser = argparse.ArgumentParser(
+                    prog = 'MU Auto Eval',
+                    description = 'Evaluation automation for MU')
+    parser.add_argument('-s', '--semester-select',
+                    action='store_true')
+    fail = main(parser.parse_args())
     if not fail:
         print("\nSuscessfully Evaluated!!!! Thankyou for using. ")
         input("Press enter to exit the program")
